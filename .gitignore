@@ -1,0 +1,6 @@
+bin/
+obj/
+My Project/
+*.user
+*.suo
+*.cache
