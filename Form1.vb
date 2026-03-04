@@ -4,6 +4,8 @@
     Private a, b, c, d As Double
     Private paper As Graphics
     Private myPen As New Pen(Color.Black)
+    Private axisPen As New Pen(Color.Gray)
+    Private axisFont As New Font("Arial", 8)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         PictureBox1.BackColor = Color.White
@@ -27,7 +29,7 @@
         d = CDbl(TextBox4.Text)
 
         paper.Clear(Color.White)
-
+        DrawAxes()
         Draw()
 
     End Sub
@@ -85,4 +87,31 @@
 
     End Function
 
+    Private Sub DrawAxes()
+
+        ' Горизонтальная ось
+        paper.DrawLine(axisPen,
+                       0, PictureBox1.Height \ 2,
+                       PictureBox1.Width, PictureBox1.Height \ 2)
+
+        ' Вертикальная ось
+        paper.DrawLine(axisPen,
+                       PictureBox1.Width \ 2, 0,
+                       PictureBox1.Width \ 2, PictureBox1.Height)
+
+        ' Подписи по оси X
+        For i As Integer = -5 To 5
+            Dim xPixel As Integer = CInt(PictureBox1.Width / 2 + i * 20)
+            paper.DrawString(i.ToString(), axisFont, Brushes.Black,
+                             xPixel - 5, PictureBox1.Height \ 2 + 5)
+        Next
+
+        ' Подписи по оси Y
+        For i As Integer = -5 To 5
+            Dim yPixel As Integer = CInt(PictureBox1.Height / 2 - i * 20)
+            paper.DrawString(i.ToString(), axisFont, Brushes.Black,
+                             PictureBox1.Width \ 2 + 5, yPixel - 5)
+        Next
+
+    End Sub
 End Class
